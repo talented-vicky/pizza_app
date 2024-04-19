@@ -77,8 +77,16 @@ function Menu() {
     }
   </main>
 }
+function Order({closeHour, currentHour}) {
+  return <div className='order'>
+    <p> {`Now Open -- Closing in ${closeHour - currentHour} hrs`} </p>
+    <button className='btn'> Order Now </button>
+  </div>
+}
+
 function Footer() {
   const currentHour = new Date().getHours();
+  // const currentHour = 21;
   const open = 10;
   const close = 20;
   const isOpen = currentHour >= open && currentHour <= close;
@@ -86,20 +94,25 @@ function Footer() {
   
   return <footer className='footer'>
     { isOpen 
-      ? <div className='order'>
-          <p> {`Now Open -- Closing in ${close - currentHour} hrs`} </p>
-          <button className='btn'> Order Now </button>
-        </div>
+      ? <Order  
+            closeHour={close}
+            currentHour={currentHour}
+      />
       : <p> { `Currently Closed -- Opening in ${(24 - currentHour) + 10} hrs`}</p>}
   </footer>
 }
-function Pizza(props) {
-  return <li className='pizza'>
-    <img src={props.pizzaData.photoName} alt={props.pizzaData.name}></img>
+function Pizza({pizzaData}) {
+  return <li className={pizzaData.soldout ? 'pizza sold-out' : 'pizza'}>
+    <img src={pizzaData.photoName} alt={pizzaData.name}></img>
     <div>
-      <h3> {props.pizzaData.name} </h3>
-      <p> {props.pizzaData.ingredients} </p>
-      <span> {props.pizzaData.price} </span>
+      <h3> {pizzaData.name} </h3>
+      <p> {pizzaData.ingredients} </p>
+      {/* { 
+        pizzaData.soldout 
+        ? <span> SOLD OUT </span>
+        : <span> {pizzaData.price} </span>
+      } */}
+      <span> { pizzaData.soldout ? 'SOLD OUT' : pizzaData.price } </span>
     </div>
   </li>
 }

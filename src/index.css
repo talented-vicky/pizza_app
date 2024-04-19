@@ -121,10 +121,10 @@ body {
     display: block;
     font-size: 1.4rem;
 }
-.pizza.sold-out {
+.sold-out {
     color: #888;
 }
-.pizza.sold-out img {
+.sold-out img {
     filter: grayscale();
     opacity: .7;
 }
